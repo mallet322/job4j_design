@@ -4,9 +4,11 @@ jdk:
 
 sudo: false
 
-env:
-  global:
-    - CODECOV_TOKEN = "74ac46d7-2257-4777-bca7-2f7fca932d25"
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+#env:
+#  global:
+#    - CODECOV_TOKEN = "74ac46d7-2257-4777-bca7-2f7fca932d25"
 
 notifications:
   email:
