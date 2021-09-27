@@ -6,7 +6,7 @@ sudo: false
 
 env:
   global:
-    - CODECOV_TOKEN = "74ac46d7-2257-4777-bca7-2f7fca932d25"
+    - CODECOV_TOKEN='74ac46d7-2257-4777-bca7-2f7fca932d25'
 
 notifications:
   email:
