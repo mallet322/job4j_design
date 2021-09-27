@@ -1,0 +1,16 @@
+language: java
+jdk:
+  - openjdk14
+
+sudo: false
+
+env:
+  global:
+    - CODECOV_TOKEN = "74ac46d7-2257-4777-bca7-2f7fca932d25"
+
+notifications:
+  email:
+    recipients:
+      - mallet322@gmail.com
+    on_success: never # default: change
+    on_failure: always # default: always
