@@ -6,6 +6,13 @@ import java.util.List;
 
 public class Generics {
 
+    /**
+     * Т.к. CI бот не дает комментировать, пишу здесь, что сделал:
+     * 1. Т.к. во втором методе используется ограничение типа сверху,
+     *    то в него не попадает объект типа - Animal.
+     * 2. Т.к. в третьем методе используется ограничение типа сверху,
+     *    то в него не попадает объект типа - Tiger.
+     */
     public static void main(String[] args) {
         Generics gen = new Generics();
         List<Animal> first = new ArrayList<>();
@@ -20,14 +27,13 @@ public class Generics {
         gen.printObject(third);
         System.out.println();
 
-        //gen.printBoundedWildCard(first);
         gen.printBoundedWildCard(second);
         gen.printBoundedWildCard(third);
         System.out.println();
 
         gen.printLowerBoundedWildCard(first);
         gen.printLowerBoundedWildCard(second);
-        //gen.printLowerBoundedWildCard(third);
+
     }
 
     public void printObject(List<?> list) {
