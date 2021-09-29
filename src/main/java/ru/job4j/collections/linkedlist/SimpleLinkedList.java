@@ -11,48 +11,51 @@ public class SimpleLinkedList<E> implements List<E> {
 
     private int modCount;
 
-    private Node<E> first;
+    private Node<E> head;
 
-    private Node<E> last;
+    private Node<E> tail;
 
     @Override
     public void add(E value) {
-        Node<E> tmp = last;
-        Node<E> newNode = new Node<>(tmp, value, null);
-        last = newNode;
-        if (tmp == null) {
-            first = newNode;
+        Node<E> newNode = new Node<>(value, null);
+        if (isEmpty()) {
+            head = newNode;
         } else {
-            tmp.next = newNode;
+            tail.next = newNode;
         }
+        tail = newNode;
         size++;
         modCount++;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
     }
 
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        Node<E> node = first;
+        Node<E> node = head;
         for (int i = 0; i < index; i++) {
             node = node.getNext();
         }
-        return node.getItem();
+        return node.getData();
     }
 
     @Override
     public Iterator<E> iterator() {
-        return new Iterator<E>() {
-            private int cursor = 0;
-            private final int expectedModCount = modCount;
-            private Node<E> lastReturned = first;
 
+        return new Iterator<E>() {
+
+            private final int expectedModCount = modCount;
+            private Node<E> current = head;
 
             @Override
             public boolean hasNext() {
                 if (modCount != expectedModCount) {
                     throw new ConcurrentModificationException();
                 }
-                return cursor < size;
+                return current != null;
             }
 
             @Override
@@ -60,27 +63,27 @@ public class SimpleLinkedList<E> implements List<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                Node<E> node = lastReturned;
-                lastReturned = lastReturned.getNext();
-                cursor++;
-                return node.getItem();
+                E data = current.getData();
+                current = current.getNext();
+                return data;
             }
+
         };
+
     }
 
     private static class Node<E> {
-        E item;
-        Node<E> next;
-        Node<E> prev;
 
-        public Node(Node<E> prev, E element, Node<E> next) {
-            this.item = element;
+        E data;
+        Node<E> next;
+
+        public Node(E element, Node<E> next) {
+            this.data = element;
             this.next = next;
-            this.prev = prev;
         }
 
-        public E getItem() {
-            return item;
+        public E getData() {
+            return data;
         }
 
         public Node<E> getNext() {
