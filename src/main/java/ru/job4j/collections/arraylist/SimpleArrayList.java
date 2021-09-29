@@ -8,6 +8,8 @@ import java.util.Objects;
 
 public class SimpleArrayList<T> implements List<T> {
 
+    private static final Object[] EMPTY_CONTAINER = {};
+
     private T[] container;
 
     private int size;
@@ -21,10 +23,23 @@ public class SimpleArrayList<T> implements List<T> {
     @Override
     public void add(T value) {
         modCount++;
-        if (size == container.length) {
+        add(value, container, size);
+    }
+
+    private void add(T value, Object[] array, int s) {
+        if (s == array.length) {
+            array = grow();
+        }
+        array[s] = value;
+        size = s + 1;
+    }
+
+    private T[] grow() {
+        int oldCapacity = container.length;
+        if (oldCapacity > 0 || container != EMPTY_CONTAINER) {
             container = Arrays.copyOf(container, container.length * 2);
         }
-        container[size++] = value;
+        return container;
     }
 
     @Override
@@ -38,13 +53,20 @@ public class SimpleArrayList<T> implements List<T> {
     @Override
     public T remove(int index) {
         Objects.checkIndex(index, size);
+        T[] oldArr = container;
         T oldValue = container[index];
-        modCount++;
-        container[index] = null;
-        System.arraycopy(container, index + 1, container, index, container.length - index - 1);
-        container[container.length - 1] = null;
-        size--;
+        remove(oldArr, index);
         return oldValue;
+    }
+
+    private void remove(T[] array, int index) {
+        modCount++;
+        int newSize = size - 1;
+        if (newSize > index) {
+            System.arraycopy(array, index + 1, array, index, newSize - index);
+        }
+        size = newSize;
+        array[size] = null;
     }
 
     @Override
