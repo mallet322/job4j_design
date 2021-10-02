@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class SimpleArrayList<T> implements List<T> {
 
-    private static final Object[] EMPTY_CONTAINER = {};
+    private static final int DEFAULT_CAPACITY = 10;
 
     private T[] container;
 
@@ -32,9 +32,15 @@ public class SimpleArrayList<T> implements List<T> {
 
     private void grow() {
         int oldCapacity = container.length;
-        if (oldCapacity > 0 || container != EMPTY_CONTAINER) {
-            container = Arrays.copyOf(container, container.length * 2);
+        if (oldCapacity == 0) {
+            initializeDefaultArray();
+        } else {
+            container = Arrays.copyOf(container, oldCapacity * 2);
         }
+    }
+
+    private void initializeDefaultArray() {
+        this.container = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
     @Override
@@ -74,6 +80,7 @@ public class SimpleArrayList<T> implements List<T> {
     public Iterator<T> iterator() {
         return new Iterator<>() {
             private int cursor = 0;
+
             private final int expectedModCount = modCount;
 
             @Override
