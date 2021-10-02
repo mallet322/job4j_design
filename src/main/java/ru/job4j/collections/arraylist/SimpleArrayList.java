@@ -33,14 +33,10 @@ public class SimpleArrayList<T> implements List<T> {
     private void grow() {
         int oldCapacity = container.length;
         if (oldCapacity == 0) {
-            initializeDefaultArray();
+            this.container = (T[]) new Object[DEFAULT_CAPACITY];
         } else {
             container = Arrays.copyOf(container, oldCapacity * 2);
         }
-    }
-
-    private void initializeDefaultArray() {
-        this.container = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
     @Override
