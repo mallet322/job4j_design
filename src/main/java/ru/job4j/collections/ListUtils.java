@@ -7,33 +7,21 @@ public class ListUtils {
 
     public static <T> void addBefore(List<T> list, int index, T value) {
         Objects.checkIndex(index, list.size());
-        ListIterator<T> i = list.listIterator();
-        while (i.hasNext()) {
-            if (i.nextIndex() == index) {
-                i.add(value);
-                break;
-            }
-            i.next();
-        }
+        ListIterator<T> i = list.listIterator(index);
+        i.add(value);
     }
 
     public static <T> void addAfter(List<T> list, int index, T value) {
         Objects.checkIndex(index, list.size());
-        ListIterator<T> i = list.listIterator(list.size());
-        while (i.hasPrevious()) {
-            if (i.previousIndex() == index) {
-                i.add(value);
-                break;
-            }
-            i.next();
-        }
+        var nextIndex = index + 1;
+        ListIterator<T> i = list.listIterator(nextIndex);
+        i.add(value);
     }
 
     public static <T> void removeIf(List<T> list, Predicate<T> filter) {
         ListIterator<T> i = list.listIterator();
         while (i.hasNext()) {
-            T element = i.next();
-            if (filter.test(element)) {
+            if (filter.test(i.next())) {
                 i.remove();
             }
         }
@@ -42,17 +30,18 @@ public class ListUtils {
     public static <T> void replaceIf(List<T> list, Predicate<T> filter, T value) {
         ListIterator<T> i = list.listIterator();
         while (i.hasNext()) {
-            T element = i.next();
-            if (filter.test(element)) {
+            if (filter.test(i.next())) {
                 i.set(value);
             }
         }
     }
 
     public static <T> void removeAll(List<T> list, List<T> elements) {
-        ListIterator<T> el = elements.listIterator();
-        while (el.hasNext()) {
-            list.remove(el.next());
+        ListIterator<T> li = list.listIterator();
+        while (li.hasNext()) {
+            if (elements.contains(li.next())) {
+                li.remove();
+            }
         }
     }
 
