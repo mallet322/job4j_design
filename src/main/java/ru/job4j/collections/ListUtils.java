@@ -13,8 +13,7 @@ public class ListUtils {
 
     public static <T> void addAfter(List<T> list, int index, T value) {
         Objects.checkIndex(index, list.size());
-        var nextIndex = index + 1;
-        ListIterator<T> i = list.listIterator(nextIndex);
+        ListIterator<T> i = list.listIterator(index + 1);
         i.add(value);
     }
 
