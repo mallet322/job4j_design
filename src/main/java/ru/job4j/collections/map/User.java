@@ -55,13 +55,4 @@ public class User {
                 birthday, user.birthday);
     }
 
-//    @Override
-//    public String toString() {
-//        return "User{"
-//                + "name='" + name + '\''
-//                + ", children=" + children
-//                + ", birthday=" + birthday
-//                + '}';
-//    }
-
 }
