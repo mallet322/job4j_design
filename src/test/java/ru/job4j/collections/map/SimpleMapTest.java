@@ -67,7 +67,7 @@ public class SimpleMapTest {
         map.put(key, "user-value");
         key.setName("Max");
         boolean isRemove = map.remove(key);
-        Assert.assertEquals(false, isRemove);
+        Assert.assertFalse(isRemove);
 
     }
 
