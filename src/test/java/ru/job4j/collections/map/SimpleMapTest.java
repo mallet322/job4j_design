@@ -66,7 +66,8 @@ public class SimpleMapTest {
         var key = new User("Alex", 2, new GregorianCalendar(1995, Calendar.NOVEMBER, 25));
         map.put(key, "user-value");
         key.setName("Max");
-        Assert.assertFalse(map.remove(key));
+        map.remove(key);
+        Assert.assertNull(map.get(key));
     }
 
     @Test(expected = NoSuchElementException.class)
