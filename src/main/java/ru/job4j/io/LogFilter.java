@@ -16,7 +16,7 @@ public class LogFilter {
         List<String> result = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             result = in.lines()
-                       .filter(s -> s.contains("404"))
+                       .filter(LogFilter::check404)
                        .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -30,6 +30,11 @@ public class LogFilter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean check404(String str) {
+        var arr = str.split(" ");
+        return "404".equals(arr[arr.length - 2]);
     }
 
     public static void main(String[] args) {
