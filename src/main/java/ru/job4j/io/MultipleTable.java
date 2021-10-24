@@ -9,7 +9,7 @@ public class MultipleTable {
         try (FileOutputStream out = new FileOutputStream("result.txt")) {
             for (int i = 1; i <= 10; i++) {
                 for (int j = 1; j <= 10; j++) {
-                    String rsl = String.valueOf(i * j).concat(" ");
+                    String rsl = String.format("%4d", i * j);
                     out.write(rsl.getBytes());
                 }
                 out.write(System.lineSeparator().getBytes());
