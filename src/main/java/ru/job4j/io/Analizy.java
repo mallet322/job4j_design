@@ -3,6 +3,7 @@ package ru.job4j.io;
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Analizy {
@@ -24,13 +25,9 @@ public class Analizy {
                 }
             }
             out.println(downtime);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        unavailable("src/main/resources/data/server.log", "src/main/resources/data/server-downtime.txt");
     }
 
 }
