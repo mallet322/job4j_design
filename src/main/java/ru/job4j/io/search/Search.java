@@ -10,8 +10,22 @@ import java.util.function.Predicate;
 public class Search {
 
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get("c:\\projects\\job4j_design");
-        search(start, p -> p.toFile().getName().endsWith("txt")).forEach(System.out::println);
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Root folder is null. Usage java -jar dir.jar ROOT_FOLDER.");
+        }
+        String path = args[0];
+        String ext = args[1];
+        if (!"java".equals(ext)
+                && !"txt".equals(ext)
+                && !"yml".equals(ext)
+                && !"xml".equals(ext)
+                && !"json".equals(ext)
+                && !"properties".equals(ext)) {
+            throw new IllegalArgumentException(
+                    "The file extension is incorrect. Usage java, txt, yml, json, xml extensions");
+        }
+        Path start = Paths.get(path);
+        search(start, p -> p.toFile().getName().endsWith(ext)).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
