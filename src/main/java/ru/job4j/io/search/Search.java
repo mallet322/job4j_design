@@ -19,7 +19,8 @@ public class Search {
         if (args.length != 2) {
             throw new IllegalArgumentException("Invalid arguments. Usage java -jar dir.jar ROOT_FOLDER EXT");
         }
-        if (!Path.of(args[0]).toFile().exists() || !Path.of(args[0]).toFile().isDirectory()) {
+        var file = Path.of(args[0]).toFile();
+        if (!file.exists() || !file.isDirectory()) {
             throw new IllegalArgumentException(
                     "Root folder is null or not exist. Usage java -jar dir.jar ROOT_FOLDER.");
         }
