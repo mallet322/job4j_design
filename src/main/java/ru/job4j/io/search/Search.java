@@ -15,7 +15,7 @@ public class Search {
         search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
-    private static void validateArguments(String[] args) {
+    public static void validateArguments(String[] args) {
         if (args.length != 2) {
             throw new IllegalArgumentException("Invalid arguments. Usage java -jar dir.jar ROOT_FOLDER EXT");
         }
