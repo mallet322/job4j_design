@@ -2,6 +2,8 @@ package ru.job4j.io;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ArgsName {
 
@@ -17,7 +19,7 @@ public class ArgsName {
         }
         for (String s : args) {
             String[] strings = s.split("=");
-            if (strings.length < 2) {
+            if (strings.length < 2 || !strings[0].startsWith("-")) {
                 throw new IllegalArgumentException("Wrong argument type!");
             }
             values.put(strings[0].substring(1), strings[1]);
@@ -29,5 +31,6 @@ public class ArgsName {
         names.parse(args);
         return names;
     }
+
 
 }
