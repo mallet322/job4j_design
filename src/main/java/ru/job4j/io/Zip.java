@@ -29,30 +29,44 @@ public class Zip {
         }
     }
 
-    public static void packSingleFile(File source, File target) {
-        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
-            zip.putNextEntry(new ZipEntry(source.getName()));
-            try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(source))) {
-                zip.write(out.readAllBytes());
+    private static void validateArguments(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Invalid arguments");
+        }
+        for (String s : args) {
+            var strings = s.split("=");
+            if (!strings[0].startsWith("-")) {
+                throw new IllegalArgumentException("Wrong argument type! Arg key should be start with '-'");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            switch (strings[0]) {
+                case "-d":
+                    var file = new File(strings[1]);
+                    if (!file.exists() || !file.isDirectory()) {
+                        throw new IllegalArgumentException("Root folder is not directory or not exist!");
+                    }
+                    break;
+                case "-e":
+                    if (strings[1] == null || strings[1].isEmpty()) {
+                        throw new IllegalArgumentException("Wrong argument type! Arg value is null!");
+                    }
+                    break;
+                case "-o":
+                    if (strings[1] == null || strings[1].isEmpty()) {
+                        throw new IllegalArgumentException("Wrong argument type! Arg value is null!");
+                    } else if (!strings[1].endsWith("zip")) {
+                        throw new IllegalArgumentException("Wrong argument type! Package file ext is not zip!");
+                    }
+                    break;
+                default:
+                    throw new IllegalArgumentException("Wrong argument type!");
+            }
         }
     }
 
     public static void main(String[] args) throws IOException {
-        packSingleFile(
-                new File("./pom.xml"),
-                new File("./pom.zip")
-        );
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Invalid arguments");
-        }
+        validateArguments(args);
         ArgsName jvm = ArgsName.of(args);
         var root = Path.of(jvm.get("d"));
-        if (!root.toFile().exists()) {
-            throw new IllegalArgumentException("Root folder is not exist");
-        }
         var exclude = jvm.get("e");
         var output = new File(jvm.get("o"));
         var list = Search.search(root, p -> !p.toFile().getName().endsWith(exclude))
