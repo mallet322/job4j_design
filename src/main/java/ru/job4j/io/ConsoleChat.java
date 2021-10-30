@@ -71,17 +71,12 @@ public class ConsoleChat {
     }
 
     private void writeLog(List<String> log, String str, int check) {
-        switch (check) {
-            case 1 -> {
-                str = "User: ".concat(str);
-                log.add(str);
-            }
-            case 2 -> {
-                str = "Bot: ".concat(str);
-                log.add(str);
-            }
-            default -> {
-            }
+        if (check == 1) {
+            str = "User: ".concat(str);
+            log.add(str);
+        } else if (check == 2) {
+            str = "Bot: ".concat(str);
+            log.add(str);
         }
     }
 
