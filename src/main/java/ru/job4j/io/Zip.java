@@ -30,7 +30,7 @@ public class Zip {
     }
 
     private static void validateArguments(String[] args) {
-        if (args.length == 0) {
+        if (args.length != 3) {
             throw new IllegalArgumentException("Invalid arguments");
         }
         for (String s : args) {
