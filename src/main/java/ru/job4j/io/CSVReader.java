@@ -95,42 +95,26 @@ public class CSVReader {
         }
     }
 
-    public void validateArguments(String[] args) {
-        if (args.length != 4) {
-            throw new IllegalArgumentException("Invalid arguments");
+    public ArgsName validateArguments(String[] args) {
+        var argsName = ArgsName.of(args);
+        var keySet = argsName.getValues().keySet();
+        if (args.length != 4
+                && !keySet.contains("path")
+                && !keySet.contains("delimiter")
+                && !keySet.contains("out")
+                && !keySet.contains("filter")) {
+            throw new IllegalArgumentException("Invalid arguments!");
         }
-        for (String s : args) {
-            var strings = s.split("=");
-            if (!strings[0].startsWith("-")) {
-                throw new IllegalArgumentException("Wrong argument type! Arg key should be start with '-'");
-            }
-            switch (strings[0]) {
-                case "-path":
-                    if (strings.length != 2) {
-                        throw new IllegalArgumentException("Wrong argument type! Arg value is null!");
-                    }
-                    var file = new File(strings[1]);
-                    if (!file.exists()) {
-                        throw new IllegalArgumentException("File is not exist!");
-                    }
-                    break;
-                case "-delimiter":
-                case "-out":
-                case "-filter":
-                    if (strings.length != 2) {
-                        throw new IllegalArgumentException("Wrong argument type! Arg value is null!");
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException("Wrong argument type!");
-            }
+        var file = new File(argsName.get("path"));
+        if (!file.exists()) {
+            throw new IllegalArgumentException("File is not exist!");
         }
+        return argsName;
     }
 
     public static void main(String[] args) throws Exception {
         CSVReader reader = new CSVReader();
-        reader.validateArguments(args);
-        var argsName = ArgsName.of(args);
+        var argsName = reader.validateArguments(args);
         reader.handle(argsName);
     }
 

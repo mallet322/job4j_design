@@ -2,8 +2,7 @@ package ru.job4j.io;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Set;
 
 public class ArgsName {
 
@@ -18,9 +17,15 @@ public class ArgsName {
             throw new IllegalArgumentException("Wrong arguments!");
         }
         for (String s : args) {
+            if (!s.startsWith("-") || !s.contains("=")) {
+                throw new IllegalArgumentException("Wrong argument type!"
+                                                           + "Argument should begin with '-' "
+                                                           + "and must contain '='");
+            }
             String[] strings = s.split("=");
-            if (strings.length < 2 || !strings[0].startsWith("-")) {
-                throw new IllegalArgumentException("Wrong argument type!");
+            if (strings.length != 2) {
+                throw new IllegalArgumentException("Wrong argument type!"
+                                                           + "Arg must contain key and value!");
             }
             values.put(strings[0].substring(1), strings[1]);
         }
@@ -32,5 +37,8 @@ public class ArgsName {
         return names;
     }
 
+    public Map<String, String> getValues() {
+        return values;
+    }
 
 }
