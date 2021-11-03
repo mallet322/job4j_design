@@ -16,9 +16,11 @@ public class EchoServer {
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                    for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
+                    String line = in.readLine();
+                    System.out.println(line);
+                    if (in.ready()) {
+                        String str = extractRequestParam(line);
                         serverResponse(str, out, server);
-                        System.out.println(str);
                     }
                     out.flush();
                 }
@@ -29,15 +31,24 @@ public class EchoServer {
     }
 
     private static void serverResponse(String msg, OutputStream out, ServerSocket server) throws IOException {
-        if (msg.contains("/?msg=Hello ")) {
+        if ("Hello".equals(msg)) {
             out.write("Hello, dear friend.\r\n\r\n".getBytes());
-        } else if (msg.contains("/?msg=Any ")) {
-            out.write("Whats going on, dear friend?\r\n\r\n".getBytes());
-        } else if (msg.contains("/?msg=Exit ")) {
-            out.write("Exit.\r\n\r\n".getBytes());
+        } else if ("Exit".equals(msg)) {
+            out.write("Exit...\r\n\r\n".getBytes());
             server.close();
+        } else {
+            out.write("Request parameter: ".concat(msg).concat("\r\n\r\n").getBytes());
         }
     }
 
-}
+    private static String extractRequestParam(String request) {
+        return request == null || request.isEmpty() ? " " : extractParam(request);
+    }
 
+    private static String extractParam(String request) {
+        return request.contains("/?msg=")
+               ? request.substring(request.indexOf("/?msg="), request.lastIndexOf(" HTTP/1.1")).split("=")[1]
+               : " ";
+    }
+
+}
