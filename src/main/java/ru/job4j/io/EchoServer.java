@@ -7,7 +7,12 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class EchoServer {
+
+    private static final Logger LOG = LoggerFactory.getLogger(EchoServer.class.getName());
 
     public static void main(String[] args) {
         try (ServerSocket server = new ServerSocket(9000)) {
@@ -26,7 +31,7 @@ public class EchoServer {
                 }
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            LOG.error("Error: ", e);
         }
     }
 
