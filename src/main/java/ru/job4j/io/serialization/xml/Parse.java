@@ -1,5 +1,9 @@
 package ru.job4j.io.serialization.xml;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 public class Parse {
@@ -14,19 +18,26 @@ public class Parse {
                 new Contact("Romeo", "+1 567 09764731")
         );
         Person person = new Person("Jim", 34, 'm', true, numbers, contacts);
-        System.out.println(getPersonTags(person));
+        getXMLFile(getPersonTags(person));
+    }
+
+    private static void getXMLFile(String out) {
+        try (PrintWriter writer = new PrintWriter(new BufferedOutputStream(new FileOutputStream("Person.xml")))) {
+            writer.println(out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static String getPersonTags(Person person) {
-        String header = "<?xml version=\"1.1\" encoding=\"UTF-8\" ?>";
+        String header = "<?xml version=\"1.1\" encoding=\"UTF-8\"?>";
         String startTag = "<Person>";
         String endTag = "</Person>";
         String args =
                 "<name>" + person.getName() + "</name>"
-                + "<age>" + person.getAge() + "</age>"
-                + "<sex>" + person.getSex() + "</sex>"
-                + "<isMale>" + person.isMale() + "</isMale>";
-
+                        + "<age>" + person.getAge() + "</age>"
+                        + "<sex>" + person.getSex() + "</sex>"
+                        + "<isMale>" + person.isMale() + "</isMale>";
 
         var numbers = getNumberTags(person).trim();
         var contacts = getContactTags(person).trim();
@@ -45,7 +56,7 @@ public class Parse {
     }
 
     private static String getNumberTag(String num) {
-        return "<number>" + num + "</number>";
+        return "<value>" + num + "</value>";
     }
 
     private static String getContactTags(Person person) {

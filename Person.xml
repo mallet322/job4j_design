@@ -1,0 +1,33 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<Person>
+    <name>Jim</name>
+    <age>34</age>
+    <sex>m</sex>
+    <isMale>true</isMale>
+    <numbers>
+        <value>+1 456 567677452</value>
+        <value>+1 457 12345678</value>
+    </numbers>
+    <contacts>
+        <Contact>
+            <name>Michael</name>
+            <phone>+1 123 32131231</phone>
+        </Contact>
+        <Contact>
+            <name>Andy</name>
+            <phone>+1 321 56757521</phone>
+        </Contact>
+        <Contact>
+            <name>Ruby</name>
+            <phone>+1 312 328989031</phone>
+        </Contact>
+        <Contact>
+            <name>Set</name>
+            <phone>+1 876 312367868</phone>
+        </Contact>
+        <Contact>
+            <name>Romeo</name>
+            <phone>+1 567 09764731</phone>
+        </Contact>
+    </contacts>
+</Person>
