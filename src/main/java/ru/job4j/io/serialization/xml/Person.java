@@ -1,16 +1,43 @@
 package ru.job4j.io.serialization.xml;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import java.util.Arrays;
 import java.util.List;
 
+@XmlRootElement(name = "person")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Person {
 
-    private final String name;
-    private final int age;
-    private final char sex;
-    private final boolean isMale;
-    private final String[] numbers;
-    private final List<Contact> contacts;
+    @XmlAttribute
+    private String name;
+
+    @XmlAttribute
+    private int age;
+
+    @XmlJavaTypeAdapter(CharacterAdapter.class)
+    @XmlAttribute
+    private Character sex;
+
+    @XmlAttribute
+    private boolean isMale;
+
+    @XmlElementWrapper(name = "numbers")
+    @XmlElement(name = "value")
+    private String[] numbers;
+
+    @XmlElementWrapper(name = "contacts")
+    @XmlElement(name = "contact")
+    private List<Contact> contacts;
+
+    public Person() {
+    }
 
     public Person(String name, int age, char sex, boolean isMale, String[] numbers, List<Contact> contacts) {
         this.name = name;
@@ -29,7 +56,7 @@ public class Person {
         return age;
     }
 
-    public char getSex() {
+    public Character getSex() {
         return sex;
     }
 
