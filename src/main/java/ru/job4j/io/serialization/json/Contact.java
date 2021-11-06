@@ -10,6 +10,14 @@ public class Contact {
         this.phone = phone;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     @Override
     public String toString() {
         return "Contact{"

@@ -25,8 +25,20 @@ public class Person {
         return name;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public char getSex() {
+        return sex;
+    }
+
     public boolean isMale() {
         return isMale;
+    }
+
+    public String[] getNumbers() {
+        return numbers;
     }
 
     public List<Contact> getContacts() {
