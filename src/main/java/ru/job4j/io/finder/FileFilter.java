@@ -2,6 +2,7 @@ package ru.job4j.io.finder;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public class FileFilter {
 
@@ -37,16 +38,18 @@ public class FileFilter {
     }
 
     private Predicate<Path> getFileByMask(String mask) {
-        var pattern =
+        var p =
                 mask.replace(".", "\\.")
                     .replace("*", ".*")
                     .replace("?", ".?")
                     .replace("*", ".*?");
-        return path -> path.toFile().getName().matches(pattern);
+        Pattern pattern = Pattern.compile(p);
+        return path -> pattern.matcher(path.toFile().getName()).matches();
     }
 
     private Predicate<Path> getFileByRegexPattern(String regex) {
-        return path -> path.toFile().getName().matches(regex);
+        Pattern pattern = Pattern.compile(regex);
+        return path -> pattern.matcher(path.toFile().getName()).matches();
     }
 
 }
