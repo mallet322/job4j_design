@@ -32,11 +32,11 @@ values ('Russia, Moscow, ul. Baumanskaya 2-ya, 5/1', '105005');
 insert into locations(address, postal_code)
 values ('Russia, St. Petersburg, Kronverksky Pr. 49, bldg. A', '197101');
 -----------
-insert into departments(department_name, person_id, locataion_id)
+insert into departments(department_name, person_id, location_id)
 values ('Manager', 1, 1);
-insert into departments(department_name, person_id, locataion_id)
+insert into departments(department_name, person_id, location_id)
 values ('QA Engineer', 2, 2);
-insert into departments(department_name, person_id, locataion_id)
+insert into departments(department_name, person_id, location_id)
 values ('Java Developer', 3, 2);
 -----------
 insert into persons(name, age, department_id)
