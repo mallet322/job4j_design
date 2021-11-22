@@ -1,4 +1,4 @@
-package ru.job4j.jdbc.table_editor;
+package ru.job4j.jdbc.editor;
 
 import java.io.File;
 import java.io.FileInputStream;

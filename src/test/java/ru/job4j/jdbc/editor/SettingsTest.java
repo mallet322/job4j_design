@@ -1,4 +1,4 @@
-package ru.job4j.jdbc.table_editor;
+package ru.job4j.jdbc.editor;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package ru.job4j.jdbc.table_editor;
+package ru.job4j.jdbc.editor;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -49,24 +49,18 @@ public class TableEditor implements AutoCloseable {
 
     private String checkQuery(String ddl, String... params) {
         switch (ddl) {
-            case TableEditorConstants.CREATE_TABLE -> {
+            case TableEditorConstants.CREATE_TABLE:
                 return createTable(params[0]);
-            }
-            case TableEditorConstants.DROP_TABLE -> {
+            case TableEditorConstants.DROP_TABLE:
                 return dropTable(params[0]);
-            }
-            case TableEditorConstants.ADD_COLUMN -> {
+            case TableEditorConstants.ADD_COLUMN:
                 return addColumn(params[0], params[1], params[2]);
-            }
-            case TableEditorConstants.DROP_COLUMN -> {
+            case TableEditorConstants.DROP_COLUMN:
                 return dropColumn(params[0], params[1]);
-            }
-            case TableEditorConstants.RENAME_COLUMN -> {
+            case TableEditorConstants.RENAME_COLUMN:
                 return renameColumn(params[0], params[1], params[2]);
-            }
-            default -> {
+            default:
                 return " ";
-            }
         }
     }
 
