@@ -26,7 +26,7 @@ public class TableEditor implements AutoCloseable {
         try {
             connection = getConnection();
         } catch (Exception e) {
-            LOG.error("InitConnectionError", e);
+            LOG.error("Error", e);
         }
     }
 
