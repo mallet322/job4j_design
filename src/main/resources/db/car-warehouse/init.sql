@@ -37,16 +37,13 @@ insert into engine(name) values ('v8');
 insert into engine(name) values ('v12');
 
 insert into transmission(name) values ('Manual transmission');
-insert into transmission(name) values ('Manual transmission');
+insert into transmission(name) values ('Automatic transmission');
 insert into transmission(name) values ('Robotic transmission');
 
 insert into car(name, body_id, engine_id, transmission_id) values ('Lada', 1, 1, 1);
-insert into car(name, body_id, engine_id, transmission_id) values ('Volkswagen', 1, 2, 1);
+insert into car(name, body_id, engine_id, transmission_id) values ('Volkswagen', 1, 3, 1);
 insert into car(name, body_id, engine_id, transmission_id) values ('Volkswagen', 1, 3, 3);
 insert into car(name, body_id, engine_id, transmission_id) values ('Toyota', 1, 1, 1);
+insert into car(name, body_id, engine_id, transmission_id) values ('Toyota', 2, 3, 3);
 insert into car(name, body_id, engine_id, transmission_id) values ('Toyota', 1, 3, 3);
-insert into car(name, body_id, engine_id, transmission_id) values ('Toyota', 1, 2, 3);
-insert into car(name, body_id, engine_id, transmission_id) values ('Toyota', 1, 1, 3);
-insert into car(name) values ('BMW');
-insert into car(name) values ('Mercedes');
-insert into car(name) values ('Range rover');
+insert into car(name, body_id, engine_id, transmission_id) values ('Toyota', 2, 1, 3);
