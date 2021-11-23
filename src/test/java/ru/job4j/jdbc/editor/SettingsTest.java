@@ -8,11 +8,11 @@ public class SettingsTest {
     @Test
     public void whenCreatePropertiesAndGetValue() {
         var settings = Settings.getInstance();
-        settings.setPropertiesFile(TableEditorConstants.PATH);
-        Assert.assertEquals("org.postgresql.Driver", settings.getValue(TableEditorConstants.DRIVER));
-        Assert.assertEquals("jdbc:postgresql://localhost:5432/postgres", settings.getValue(TableEditorConstants.URL));
-        Assert.assertEquals("postgres", settings.getValue(TableEditorConstants.LOGIN));
-        Assert.assertEquals("postgres", settings.getValue(TableEditorConstants.PASSWORD));
+        settings.setPropertiesFile("src/main/resources/app.properties");
+        Assert.assertEquals("org.postgresql.Driver", settings.getValue("driver"));
+        Assert.assertEquals("jdbc:postgresql://localhost:5432/postgres", settings.getValue("url"));
+        Assert.assertEquals("postgres", settings.getValue("login"));
+        Assert.assertEquals("postgres", settings.getValue("password"));
     }
 
 }

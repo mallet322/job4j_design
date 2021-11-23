@@ -98,13 +98,13 @@ public class TableEditor implements AutoCloseable {
         var properties = settings.getProperties();
         TableEditor editor = new TableEditor(properties);
         editor.createTable("test");
-        editor.addColumn( "test", "id", "serial primary key");
-        editor.addColumn( "test", "id1", "int");
-        editor.dropColumn( "test", "id1");
+        editor.addColumn("test", "id", "serial primary key");
         editor.addColumn("test", "id1", "int");
-        editor.renameColumn( "test", "id1", "price");
+        editor.dropColumn("test", "id1");
+        editor.addColumn("test", "id1", "int");
+        editor.renameColumn("test", "id1", "price");
         System.out.println(getTableScheme(editor.getConnection(), "test"));
-        editor.dropTable( "test");
+        editor.dropTable("test");
     }
 
 }
