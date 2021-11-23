@@ -31,36 +31,18 @@ public class TableEditor implements AutoCloseable {
     }
 
     public Connection getConnection() throws Exception {
-        Class.forName(properties.getProperty(TableEditorConstants.DRIVER));
+        Class.forName(properties.getProperty("driver"));
         return DriverManager.getConnection(
-                properties.getProperty(TableEditorConstants.URL),
-                properties.getProperty(TableEditorConstants.LOGIN),
-                properties.getProperty(TableEditorConstants.PASSWORD));
+                properties.getProperty("url"),
+                properties.getProperty("login"),
+                properties.getProperty("password"));
     }
 
-    public void createQuery(String ddl, String... params) {
+    private void createQuery(String ddl) {
         try (Statement statement = connection.createStatement()) {
-            String query = checkQuery(ddl, params);
-            statement.execute(query);
+            statement.execute(ddl);
         } catch (Exception e) {
             LOG.error("Error", e);
-        }
-    }
-
-    private String checkQuery(String ddl, String... params) {
-        switch (ddl) {
-            case TableEditorConstants.CREATE_TABLE:
-                return createTable(params[0]);
-            case TableEditorConstants.DROP_TABLE:
-                return dropTable(params[0]);
-            case TableEditorConstants.ADD_COLUMN:
-                return addColumn(params[0], params[1], params[2]);
-            case TableEditorConstants.DROP_COLUMN:
-                return dropColumn(params[0], params[1]);
-            case TableEditorConstants.RENAME_COLUMN:
-                return renameColumn(params[0], params[1], params[2]);
-            default:
-                return " ";
         }
     }
 
@@ -90,38 +72,39 @@ public class TableEditor implements AutoCloseable {
         }
     }
 
-    private String createTable(String tableName) {
-        return String.format("create table %s();", tableName);
+    public void createTable(String tableName) {
+        createQuery(String.format("create table %s();", tableName));
     }
 
-    private String dropTable(String tableName) {
-        return String.format("drop table %s;", tableName);
+    public void dropTable(String tableName) {
+        createQuery(String.format("drop table %s;", tableName));
     }
 
-    private String addColumn(String tableName, String columnName, String type) {
-        return String.format("alter table %s add column %s %s;", tableName, columnName, type);
+    public void addColumn(String tableName, String columnName, String type) {
+        createQuery(String.format("alter table %s add column %s %s;", tableName, columnName, type));
     }
 
-    private String dropColumn(String tableName, String columnName) {
-        return String.format("alter table %s drop column %s;", tableName, columnName);
+    public void dropColumn(String tableName, String columnName) {
+        createQuery(String.format("alter table %s drop column %s;", tableName, columnName));
     }
 
-    private String renameColumn(String tableName, String columnName, String newColumnName) {
-        return String.format("alter table %s rename column %s to %s;", tableName, columnName, newColumnName);
+    public void renameColumn(String tableName, String columnName, String newColumnName) {
+        createQuery(String.format("alter table %s rename column %s to %s;", tableName, columnName, newColumnName));
     }
 
     public static void main(String[] args) throws Exception {
         var settings = Settings.getInstance();
-        settings.setPropertiesFile(TableEditorConstants.PATH);
+        settings.setPropertiesFile("src/main/resources/app.properties");
         var properties = settings.getProperties();
         TableEditor editor = new TableEditor(properties);
-        editor.createQuery(TableEditorConstants.CREATE_TABLE, "test");
-        editor.createQuery(TableEditorConstants.ADD_COLUMN, "test", "id", "serial primary key");
-        editor.createQuery(TableEditorConstants.ADD_COLUMN, "test", "id1", "int");
-        editor.createQuery(TableEditorConstants.DROP_COLUMN, "test", "id1");
-        editor.createQuery(TableEditorConstants.ADD_COLUMN, "test", "id1", "int");
-        editor.createQuery(TableEditorConstants.RENAME_COLUMN, "test", "id1", "price");
+        editor.createTable("test");
+        editor.addColumn( "test", "id", "serial primary key");
+        editor.addColumn( "test", "id1", "int");
+        editor.dropColumn( "test", "id1");
+        editor.addColumn("test", "id1", "int");
+        editor.renameColumn( "test", "id1", "price");
         System.out.println(getTableScheme(editor.getConnection(), "test"));
+        editor.dropTable( "test");
     }
 
 }
