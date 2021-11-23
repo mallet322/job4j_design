@@ -48,13 +48,17 @@ public class ImportDB {
     public List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            rd.lines()
-              .forEach(s -> {
-                  var strings = s.split(";");
-                  users.add(new User(strings[0], strings[1]));
-              });
+            rd.lines().forEach(line -> addLineToUsers(users, line));
         }
         return users;
+    }
+
+    private void addLineToUsers(List<User> users, String str) {
+        var strings = str.split(";");
+        if (strings.length < 2) {
+            throw new IllegalArgumentException();
+        }
+        users.add(new User(strings[0], strings[1]));
     }
 
     public void initDB() {
