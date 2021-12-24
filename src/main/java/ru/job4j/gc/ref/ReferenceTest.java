@@ -4,7 +4,6 @@ import ru.job4j.collections.question.User;
 
 import java.lang.ref.PhantomReference;
 import java.lang.ref.ReferenceQueue;
-import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
@@ -12,8 +11,6 @@ import java.util.concurrent.TimeUnit;
 public class ReferenceTest {
 
     public static void main(String[] args) throws InterruptedException {
-        //example0();
-        //example1();
         User u = new User(1, "1");
         ReferenceQueue<User> queue = new ReferenceQueue<>();
         PhantomReference<User> phantom = new PhantomReference<>(u, queue);
