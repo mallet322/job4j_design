@@ -16,7 +16,7 @@ import java.util.List;
 public class CinemaTest {
 
     @Test
-    public void buy() {
+    public void whenBuyTicket() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
         Calendar date = Calendar.getInstance();
@@ -28,10 +28,35 @@ public class CinemaTest {
     /**
      * Покупка билета с просроченной датой, должно свалиться с ошибкой.
      * Либо мы предусматриваем такое поведение и кидаем exception.
-     * Для наглядности я прокидываю нпе (предпологая что билет не сформировался).
      */
-    @Test(expected = NullPointerException.class)
-    public void buyIncorrectTicketWithOverdueDateExpectedError() {
+    @Test(expected = IllegalArgumentException.class)
+    public void whenBuyIncorrectTicketWithOverdueDateThenExpectedError() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(1900, 10, 10, 23, 00);
+        Ticket ticket = cinema.buy(account, 1, 1, date);
+    }
+
+    /**
+     * Покупка билета на место, которое уже зарезервировано, должно свалиться с ошибкой.
+     * Либо мы предусматриваем такое поведение и кидаем exception.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void whenBuyIncorrectTicketOnReservedSeatThenExpectedError() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(1900, 10, 10, 23, 00);
+        Ticket ticket = cinema.buy(account, 1, 1, date);
+    }
+
+    /**
+     * Покупка билета на невалидное место, должно свалиться с ошибкой.
+     * Либо мы предусматриваем такое поведение и кидаем exception.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void whenBuyIncorrectTicketOnInvalidSeatThenExpectedError() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
         Calendar date = Calendar.getInstance();
@@ -40,7 +65,7 @@ public class CinemaTest {
     }
 
     @Test
-    public void findWithTrueCondition() {
+    public void whenFindWithTrueCondition() {
         Cinema cinema = new Cinema3D();
         Session session = new Session3D();
         cinema.add(session);
@@ -49,7 +74,7 @@ public class CinemaTest {
     }
 
     @Test
-    public void findWithFalseCondition() {
+    public void whenFindWithFalseCondition() {
         Cinema cinema = new Cinema3D();
         Session session = new Session3D();
         cinema.add(session);
