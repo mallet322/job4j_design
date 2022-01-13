@@ -4,10 +4,14 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import ru.job4j.ood.tdd.impl.AccountCinema;
-import ru.job4j.ood.tdd.impl.Cinema3D;
-import ru.job4j.ood.tdd.impl.Session3D;
-import ru.job4j.ood.tdd.impl.Ticket3D;
+import ru.job4j.ood.tdd.cinema.Account;
+import ru.job4j.ood.tdd.cinema.Cinema;
+import ru.job4j.ood.tdd.cinema.Session;
+import ru.job4j.ood.tdd.cinema.Ticket;
+import ru.job4j.ood.tdd.cinema.impl.AccountCinema;
+import ru.job4j.ood.tdd.cinema.impl.Cinema3D;
+import ru.job4j.ood.tdd.cinema.impl.Session3D;
+import ru.job4j.ood.tdd.cinema.impl.Ticket3D;
 
 import java.util.Calendar;
 import java.util.List;

@@ -1,11 +1,10 @@
-package ru.job4j.ood.tdd.impl;
+package ru.job4j.ood.tdd.cinema.impl;
 
-import ru.job4j.ood.tdd.Account;
-import ru.job4j.ood.tdd.Cinema;
-import ru.job4j.ood.tdd.Session;
-import ru.job4j.ood.tdd.Ticket;
+import ru.job4j.ood.tdd.cinema.Account;
+import ru.job4j.ood.tdd.cinema.Cinema;
+import ru.job4j.ood.tdd.cinema.Session;
+import ru.job4j.ood.tdd.cinema.Ticket;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.function.Predicate;
