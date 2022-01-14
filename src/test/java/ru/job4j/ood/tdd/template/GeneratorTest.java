@@ -18,7 +18,8 @@ public class GeneratorTest {
         Generator generator = new GeneratorImpl();
         String template = "I am a ${name}, Who are ${subject}? ";
         String actual = generator.produce(template, values);
-        Assert.assertEquals(template, actual);
+        String expected = "I am a Michael Scott, Who are you? ";
+        Assert.assertEquals(expected, actual);
     }
 
     @Test(expected = IllegalArgumentException.class)
