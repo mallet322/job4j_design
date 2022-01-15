@@ -1,2 +1,2 @@
 # job4j_design
-[![Build Status](https://app.travis-ci.com/mallet322/job4j_design.svg?branch=master)](https://app.travis-ci.com/mallet322/job4j_design) [![codecov](https://codecov.io/gh/mallet322/job4j_design/branch/master/graph/badge.svg?token=927SPTAH32)](https://codecov.io/gh/mallet322/job4j_design)
+[![Build Status](https://app.travis-ci.com/malletmustdie/job4j_design.svg?branch=master)](https://app.travis-ci.com/malletmustdie/job4j_design) [![codecov](https://codecov.io/gh/mallet322/job4j_design/branch/master/graph/badge.svg?token=927SPTAH32)](https://codecov.io/gh/mallet322/job4j_design)
