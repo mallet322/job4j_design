@@ -9,11 +9,19 @@ package ru.job4j.ood.ocp;
  */
 public class PrintFigures {
 
-    public void printCircle(Circle circle) {}
-    public void printSquare(Square square) {}
+    public void printCircle(Circle circle) {
 
-    public static class Circle {}
+    }
+    public void printSquare(Square square) {
+
+    }
+
+    public static class Circle {
+
+    }
     
-    public static class Square {}
+    public static class Square {
+
+    }
     
 }
