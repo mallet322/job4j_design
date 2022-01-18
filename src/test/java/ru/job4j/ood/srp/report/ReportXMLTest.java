@@ -12,7 +12,7 @@ public class ReportXMLTest {
     public void generate() {
         MemStore store = new MemStore();
         Calendar now = new GregorianCalendar(2022, Calendar.JANUARY, 18);
-        Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker = new Employee("Ivan", null, null, 100);
         store.add(worker);
         Report report = new ReportXML(store);
         String ln = "\n";
@@ -22,10 +22,6 @@ public class ReportXMLTest {
                 + "<employees>"
                 + ln
                 + "    <employees>"
-                + ln
-                + "        <fired>2022-01-18T00:00:00+03:00</fired>"
-                + ln
-                + "        <hired>2022-01-18T00:00:00+03:00</hired>"
                 + ln
                 + "        <name>Ivan</name>"
                 + ln
