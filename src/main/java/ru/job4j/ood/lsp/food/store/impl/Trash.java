@@ -13,8 +13,7 @@ public class Trash implements Store {
     @Override
     public boolean add(Food food) {
         var result = false;
-        var percent = getExpiredDatePercent(food);
-        if (checkQualityPercent(percent)) {
+        if (checkQualityPercent(food)) {
             trashStorage.add(food);
             result = true;
         }
@@ -22,8 +21,8 @@ public class Trash implements Store {
     }
 
     @Override
-    public boolean checkQualityPercent(Double percent) {
-        return percent < 0;
+    public boolean checkQualityPercent(Food food) {
+        return getExpiredDatePercent(food) < 0;
     }
 
     @Override

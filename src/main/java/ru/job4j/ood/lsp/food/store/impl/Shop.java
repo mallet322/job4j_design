@@ -13,12 +13,7 @@ public class Shop implements Store {
     @Override
     public boolean add(Food food) {
         var result = false;
-        var percent = getExpiredDatePercent(food);
-        if (checkQualityPercent(percent)) {
-            shopStorage.add(food);
-            result = true;
-        } else if (checkQualityPercentForDiscount(percent)) {
-            setNewPrice(food);
+        if (checkQualityPercent(food)) {
             shopStorage.add(food);
             result = true;
         }
@@ -26,12 +21,15 @@ public class Shop implements Store {
     }
 
     @Override
-    public boolean checkQualityPercent(Double percent) {
-        return percent > 25 && percent < 75;
-    }
-
-    public boolean checkQualityPercentForDiscount(Double percent) {
-        return percent >= 75 && percent <= 100;
+    public boolean checkQualityPercent(Food food) {
+        var percent = getExpiredDatePercent(food);
+        var result = checkQualityPercentForDiscount(percent);
+        if (result) {
+            setNewPrice(food);
+        } else {
+            result = percent > 25 && percent < 75;
+        }
+        return result;
     }
 
     @Override
@@ -42,6 +40,10 @@ public class Shop implements Store {
     @Override
     public void printFoodsInStorage() {
         shopStorage.forEach(f -> System.out.println("Food in shop: " + f));
+    }
+
+    private boolean checkQualityPercentForDiscount(Double percent) {
+        return percent >= 75 && percent <= 100;
     }
 
     private void setNewPrice(Food food) {

@@ -12,7 +12,7 @@ public interface Store {
 
     void printFoodsInStorage();
 
-    boolean checkQualityPercent(Double percent);
+    boolean checkQualityPercent(Food food);
 
     List<Food> getAll();
 

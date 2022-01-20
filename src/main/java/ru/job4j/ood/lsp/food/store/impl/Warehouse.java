@@ -13,8 +13,7 @@ public class Warehouse implements Store {
     @Override
     public boolean add(Food food) {
         var result = false;
-        var percent = getExpiredDatePercent(food);
-        if (checkQualityPercent(percent)) {
+        if (checkQualityPercent(food)) {
             warehouseStorage.add(food);
             result = true;
         }
@@ -27,7 +26,8 @@ public class Warehouse implements Store {
     }
 
     @Override
-    public boolean checkQualityPercent(Double percent) {
+    public boolean checkQualityPercent(Food food) {
+        var percent = getExpiredDatePercent(food);
         return percent < 25 && percent > 0;
     }
 
