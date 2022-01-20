@@ -15,9 +15,11 @@ public class ControlQualityTest {
 
     @Test
     public void whenDistributeToWarehouse() {
+        LocalDate createDate = LocalDate.now().withDayOfMonth(1);
+        LocalDate expiryDate = createDate.plusDays(20);
         Food food = new Food("Рис",
-                LocalDate.of(2022, 1, 20),
-                LocalDate.of(2022, 1, 1),
+                expiryDate,
+                createDate,
                 90.0,
                 0.0);
         Warehouse warehouse = new Warehouse();
@@ -30,9 +32,11 @@ public class ControlQualityTest {
 
     @Test
     public void whenDistributeToShop() {
+        LocalDate createDate = LocalDate.now().withDayOfMonth(1);
+        LocalDate expiryDate = createDate.plusMonths(1);
         Food food = new Food("Куриная грудка",
-                LocalDate.of(2022, 2, 1),
-                LocalDate.of(2022, 1, 1),
+                expiryDate,
+                createDate,
                 156.98,
                 0.0);
         Shop shop = new Shop();
@@ -45,9 +49,11 @@ public class ControlQualityTest {
 
     @Test
     public void whenDistributeToShopWithDiscount() {
+        LocalDate createDate = LocalDate.now().withDayOfMonth(1);
+        LocalDate expiryDate = createDate.plusMonths(3);
         Food food = new Food("Яблоко",
-                LocalDate.of(2022, 4, 1),
-                LocalDate.of(2022, 1, 1),
+                expiryDate,
+                createDate,
                 100.0,
                 30.0);
         Shop shop = new Shop();
@@ -62,9 +68,11 @@ public class ControlQualityTest {
 
     @Test
     public void whenDistributeToTrash() {
+        LocalDate createDate = LocalDate.now().withDayOfMonth(1);
+        LocalDate expiryDate = createDate.plusDays(14);
         Food food = new Food("Молоко",
-                LocalDate.of(2022, 1, 15),
-                LocalDate.of(2022, 1, 1),
+                expiryDate,
+                createDate,
                 70.0,
                 0.0);
         Trash trash = new Trash();

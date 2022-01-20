@@ -20,7 +20,7 @@ public class Application {
                  259.99,
                  0.0);
         Food rice = new Food("Рис",
-                LocalDate.of(2022, 1, 20),
+                LocalDate.of(2022, 1, 25),
                 LocalDate.of(2022, 1, 1),
                 90.0,
                 0.0);

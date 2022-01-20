@@ -11,12 +11,14 @@ public class Warehouse implements Store {
     private final List<Food> warehouseStorage = new ArrayList<>();
 
     @Override
-    public void add(Food food, Double percent) {
-        if (!warehouseStorage.contains(food)) {
-            if (checkQualityPercent(percent)) {
-                warehouseStorage.add(food);
-            }
+    public boolean add(Food food) {
+        var result = false;
+        var percent = getExpiredDatePercent(food);
+        if (checkQualityPercent(percent)) {
+            warehouseStorage.add(food);
+            result = true;
         }
+        return result;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class Warehouse implements Store {
 
     @Override
     public List<Food> getAll() {
-        return warehouseStorage;
+        return new ArrayList<>(warehouseStorage);
     }
 
 }

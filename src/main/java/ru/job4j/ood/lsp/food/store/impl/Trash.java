@@ -11,12 +11,14 @@ public class Trash implements Store {
     private final List<Food> trashStorage = new ArrayList<>();
 
     @Override
-    public void add(Food food, Double percent) {
-        if (!trashStorage.contains(food)) {
-            if (checkQualityPercent(percent)) {
-                trashStorage.add(food);
-            }
+    public boolean add(Food food) {
+        var result = false;
+        var percent = getExpiredDatePercent(food);
+        if (checkQualityPercent(percent)) {
+            trashStorage.add(food);
+            result = true;
         }
+        return result;
     }
 
     @Override
@@ -26,7 +28,7 @@ public class Trash implements Store {
 
     @Override
     public List<Food> getAll() {
-        return trashStorage;
+        return new ArrayList<>(trashStorage);
     }
 
     @Override

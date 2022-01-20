@@ -11,15 +11,18 @@ public class Shop implements Store {
     private final List<Food> shopStorage = new ArrayList<>();
 
     @Override
-    public void add(Food food, Double percent) {
-        if (!shopStorage.contains(food)) {
-            if (checkQualityPercent(percent)) {
-                shopStorage.add(food);
-            } else if (checkQualityPercentForDiscount(percent)) {
-                setNewPriceAndDiscount(food);
-                shopStorage.add(food);
-            }
+    public boolean add(Food food) {
+        var result = false;
+        var percent = getExpiredDatePercent(food);
+        if (checkQualityPercent(percent)) {
+            shopStorage.add(food);
+            result = true;
+        } else if (checkQualityPercentForDiscount(percent)) {
+            setNewPrice(food);
+            shopStorage.add(food);
+            result = true;
         }
+        return result;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class Shop implements Store {
 
     @Override
     public List<Food> getAll() {
-        return shopStorage;
+        return new ArrayList<>(shopStorage);
     }
 
     @Override
@@ -41,7 +44,7 @@ public class Shop implements Store {
         shopStorage.forEach(f -> System.out.println("Food in shop: " + f));
     }
 
-    private void setNewPriceAndDiscount(Food food) {
+    private void setNewPrice(Food food) {
         var newPrice = food.getPrice() - food.getDiscount();
         food.setPrice(newPrice);
     }
