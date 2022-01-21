@@ -16,7 +16,7 @@ public class ControlQualityTest {
     @Test
     public void whenDistributeToWarehouse() {
         LocalDate createDate = LocalDate.now().withDayOfMonth(1);
-        LocalDate expiryDate = createDate.plusDays(20);
+        LocalDate expiryDate = createDate.plusDays(21);
         Food food = new Food("Рис",
                 expiryDate,
                 createDate,
