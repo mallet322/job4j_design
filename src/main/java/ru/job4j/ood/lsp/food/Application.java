@@ -46,6 +46,7 @@ public class Application {
         warehouse.printFoodsInStorage();
         shop.printFoodsInStorage();
         trash.printFoodsInStorage();
+        quality.resort();
     }
 
 }

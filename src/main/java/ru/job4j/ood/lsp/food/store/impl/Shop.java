@@ -42,6 +42,11 @@ public class Shop implements Store {
         shopStorage.forEach(f -> System.out.println("Food in shop: " + f));
     }
 
+    @Override
+    public void clear() {
+        shopStorage.clear();
+    }
+
     private boolean checkQualityPercentForDiscount(Double percent) {
         return percent >= 75 && percent <= 100;
     }

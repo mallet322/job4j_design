@@ -27,4 +27,6 @@ public interface Store {
         return (double) Math.round((reminderOfExpiresDays / expiresDays) * 100);
     }
 
+    void clear();
+
 }

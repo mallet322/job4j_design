@@ -83,4 +83,23 @@ public class ControlQualityTest {
         Assert.assertEquals(food, foodsFromStore.get(0));
     }
 
+    @Test
+    public void whenResortToTrash() {
+        LocalDate createDate = LocalDate.now().withDayOfMonth(1);
+        LocalDate expiryDate = createDate.plusDays(14);
+        Food food = new Food("Молоко",
+                expiryDate,
+                createDate,
+                70.0,
+                0.0);
+        Trash trash = new Trash();
+        List<Store> stores = List.of(trash);
+        ControlQuality quality = new ControlQuality(stores);
+        quality.distributeToStore(food);
+        Food expected = trash.getAll().get(0);
+        quality.resort();
+        Food actual = trash.getAll().get(0);
+        Assert.assertEquals(expected, actual);
+    }
+
 }

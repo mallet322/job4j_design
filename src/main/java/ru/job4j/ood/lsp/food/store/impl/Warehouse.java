@@ -36,4 +36,8 @@ public class Warehouse implements Store {
         return new ArrayList<>(warehouseStorage);
     }
 
+    @Override
+    public void clear() {
+        warehouseStorage.clear();
+    }
 }

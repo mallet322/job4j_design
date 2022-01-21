@@ -35,4 +35,8 @@ public class Trash implements Store {
         trashStorage.forEach(f -> System.out.println("Food in trash: " + f));
     }
 
+    @Override
+    public void clear() {
+        trashStorage.clear();
+    }
 }
