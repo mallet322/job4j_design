@@ -21,10 +21,28 @@ public class MenuComposite extends MenuItem {
     }
 
     @Override
-    public void displayMenu() {
-        System.out.println(getName());
-        getAction().execute(getName());
+    public Action select(String itemName) {
+        Action result = null;
+        for (MenuItem item : subMenus) {
+            if (itemName.equals(item.getName())) {
+                result = item.getAction();
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public String displayMenu() {
+        var res = buildMenu(getName());
+        select(getName());
         this.subMenus.forEach(MenuItem::displayMenu);
+        return res;
+    }
+
+    private String buildMenu(String item) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(item).append(System.lineSeparator());
+        return sb.toString();
     }
 
 }
