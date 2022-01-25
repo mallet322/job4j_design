@@ -32,7 +32,7 @@ public class ControlQualityTest {
 
     @Test
     public void whenDistributeToShop() {
-        LocalDate createDate = LocalDate.now().withDayOfMonth(1);
+        LocalDate createDate = LocalDate.now().withDayOfMonth(10);
         LocalDate expiryDate = createDate.plusMonths(1);
         Food food = new Food("Куриная грудка",
                 expiryDate,
