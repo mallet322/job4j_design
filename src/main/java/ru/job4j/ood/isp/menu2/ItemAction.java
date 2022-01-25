@@ -1,6 +1,6 @@
 package ru.job4j.ood.isp.menu2;
 
-public class ActionImpl implements Action {
+public class ItemAction implements Action {
 
     @Override
     public void execute(Item item) {

@@ -1,58 +1,46 @@
 package ru.job4j.ood.isp.menu2;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Menu implements MenuService, Print {
 
-    private final List<Item> items = new ArrayList<>();
+    private static final Integer ROOT = 0;
 
     @Override
-    public void print() {
-        items.forEach(item -> {
-            System.out.println(item);
-            select(item.getName());
-        });
+    public void print(Item item) {
+        print(item, ROOT);
     }
 
     @Override
-    public void add(Item item) {
-        items.add(item);
-        for (var child : item.getChilds()) {
-            add(child);
+    public Action select(Item item) {
+        return item.getAction();
+    }
+
+    private void print(Item root, int level) {
+        System.out.println(root.getName());
+        for (Item child : root.getChilds()) {
+            print(child, level + 1);
         }
     }
 
-    @Override
-    public Item find(String itemName) {
-        Item result = null;
-        for (Item item : items) {
-            if (itemName.equals(item.getName())) {
-                result = item;
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public Action select(String name) {
-        return find(name).getAction();
+    private Item getMenu() {
+        Item root = new Item("Меню:", new MenuAction());
+        Item task1 = new Item("Задача 1", new ItemAction());
+        task1.addChild(new Item("Задача 1.1", new ItemAction()));
+        task1.addChild(new Item("Задача 1.2", new ItemAction()));
+        Item task2 = new Item("Задача 2", new ItemAction());
+        Item task21 = new Item("Задача 2.1", new ItemAction());
+        task2.addChild(task21);
+        task21.addChild(new Item("Задача 2.1.1", new ItemAction()));
+        task2.addChild(new Item("Задача 2.2", new ItemAction()));
+        task2.addChild(new Item("Задача 2.3", new ItemAction()));
+        root.addChild(task1);
+        root.addChild(task2);
+        return root;
     }
 
     public static void main(String[] args) {
-        Item item = new Item("Меню:", List.of(
-                new Item("Задача 1", List.of(
-                        new Item("Задача 1.1", new ArrayList<>(), new ActionImpl()),
-                        new Item("Задача 1.2", new ArrayList<>(), new ActionImpl())
-                ), new ActionImpl()),
-                new Item("Задача 2", List.of(
-                        new Item("Задача 2.1", List.of(
-                                new Item("Задача 2.1.1", new ArrayList<>(), new ActionImpl())
-                        ), new ActionImpl())
-                ), new ActionImpl())), new ActionImpl());
         Menu menu = new Menu();
-        menu.add(item);
-        menu.print();
+        Item root = menu.getMenu();
+        menu.print(root);
     }
 
 }

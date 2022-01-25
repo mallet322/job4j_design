@@ -1,16 +1,16 @@
 package ru.job4j.ood.isp.menu2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Item {
 
     private String name;
-    private List<Item> childs;
-    private Action action;
+    private final List<Item> childs = new ArrayList<>();
+    private final Action action;
 
-    public Item(String name, List<Item> childs, Action action) {
+    public Item(String name, Action action) {
         this.name = name;
-        this.childs = childs;
         this.action = action;
     }
 
@@ -22,20 +22,16 @@ public class Item {
         this.name = name;
     }
 
+    public void addChild(Item item) {
+        childs.add(item);
+    }
+
     public List<Item> getChilds() {
         return childs;
     }
 
-    public void setChilds(List<Item> childs) {
-        this.childs = childs;
-    }
-
     public Action getAction() {
         return action;
-    }
-
-    public void setAction(Action action) {
-        this.action = action;
     }
 
     @Override
